@@ -13,13 +13,14 @@ const structuredLlm = openai.withStructuredOutput(queryOutput);
 const writeQuery = async (state: typeof InputStateAnnotation.State) => {
 const queryPromptTemplate = await getQueryPromptTemplate();
 const datasource = await db
+console.log({datasource}, "datasource");
   const promptValue = await queryPromptTemplate.invoke({
     dialect: datasource.appDataSourceOptions.type,
     top_k: 10,
     table_info: await datasource.getTableInfo(),
     input: state.question,
   });
-  console.log(promptValue, "promptValue");
+  console.log({promptValue}, "promptValue");
   const result = await structuredLlm.invoke(promptValue);
   return { query: result.query };
 };
