@@ -11,7 +11,10 @@ import writeQuery from '@/agent/writeQuery';
 export async function POST(request: Request) {
   try {
     const { message } = await request.json();
-    const response = await writeQuery({ question: message });
+    const result = await writeQuery({ question: message });
+    
+    // Convert the result to a string if it's an object
+    const response = typeof result === 'object' ? JSON.stringify(result) : result;
     
     // Simulate a delay to make it feel more realistic
     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -21,6 +24,7 @@ export async function POST(request: Request) {
     
     return NextResponse.json({ response });
   } catch (error) {
+    console.error('Error in chat API:', error);
     return NextResponse.json(
       { error: 'Failed to process request' },
       { status: 500 }
