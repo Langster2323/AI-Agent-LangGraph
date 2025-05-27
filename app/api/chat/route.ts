@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     //   });
     
     // Convert the result to a string if it's an object
-    const response = typeof result === 'object' ? JSON.stringify(result) : result;
+    // const response = typeof result === 'object' ? JSON.stringify(result) : result;
     
     // Simulate a delay to make it feel more realistic
     await new Promise(resolve => setTimeout(resolve, 1000));
